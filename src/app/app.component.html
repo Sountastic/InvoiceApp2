@@ -1,40 +1,106 @@
-<mat-card>
-  <mat-header></mat-header>
-  <ng-container>
-    <button mat-raised-button (click)="addColumn()">Add column</button>
-    <button mat-raised-button (click)="removeColumn()">Remove column</button>
-    <button mat-raised-button (click)="shuffle()">Shuffle</button>
-    <mat-card id="moth-card" class="mat-elevation-z0">
-      <mat-card-title class="center">Invoice No.1</mat-card-title>
-      <mat-card class="inline-block">
-        <div class="ttl">
-          <p>J.Kowalski</p>
-          <p>ul.Testowa 2</p>
-          <p>40-234 Katowice</p>
-          <p>NIP 938769032</p>
-        </div>
-      </mat-card>
-      <mat-card class="to-the-right">
-        <div class="ttr">
-          <p>J.Kowalski</p>
-          <p>ul.Testowa 2</p>
-          <p>40-234 Katowice</p>
-          <p>NIP 938769032</p>
-        </div>
-      </mat-card>
-   
-    <table mat-table [dataSource]="data" class="mat-elevation-z8">
-      <ng-container
-        [matColumnDef]="column"
-        *ngFor="let column of displayedColumns"
-      >
-        <th mat-header-cell *matHeaderCellDef>{{ column | titlecase}}</th>
-        <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
-      </ng-container>
+<ng-container class="fullscreen">
+  <mat-card>
+  <mat-tab-group class="fullscreen">
+  <mat-tab label="Invoices">
+    <mat-card>
+      <mat-header></mat-header>
+      <ng-container>
+        <mat-card class="mat-elevation-z0">
+          <mat-card-title class="center">Invoices</mat-card-title>
+          <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+          </mat-form-field>
+          <table mat-table [dataSource]="invoiceData" class="mat-elevation-z8">
+            <ng-container
+              [matColumnDef]="column"
+              *ngFor="let column of columnToDisplayInvoice"
+            >
+              <th mat-header-cell *matHeaderCellDef>
+                {{ column | titlecase }}
+              </th>
+              <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+            </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-      <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
-    </table>
-  </mat-card>
-  </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnToDisplayInvoice"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnToDisplayInvoice"></tr>
+          </table>
+        </mat-card>
+      </ng-container>
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="Customers">
+    <mat-card>
+      <mat-header></mat-header>
+      <ng-container>
+        <mat-card class="mat-elevation-z0">
+          <mat-card-title class="center">Customers</mat-card-title>
+          <button type="button" [appExport]="dataInvoiceClient" fileName="dataInvoiceClient" class="btn btn-danger">
+            Export
+          </button>
+          <!-- <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+          </mat-form-field> -->
+          <table mat-table [dataSource]="dataClient" class="mat-elevation-z8">
+            <ng-container
+              [matColumnDef]="column"
+              *ngFor="let column of columnsToDisplayClients"
+            >
+              <th mat-header-cell *matHeaderCellDef>
+                {{ column | titlecase }}
+              </th>
+              <td mat-cell *matCellDef="let element" >{{ element[column] }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplayClients"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplayClients"></tr>
+          </table>
+        </mat-card>
+      </ng-container>
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="Example invoice">
+    <mat-card>
+      <mat-header></mat-header>
+      <ng-container>
+        <mat-card class="mat-elevation-z0">
+          <mat-card-title class="center">Invoice No.1</mat-card-title>
+          <mat-card class="inline-block">
+            <div class="ttl">
+              <p>J.Kowalski</p>
+              <p>ul.Testowa 2</p>
+              <p>40-234 Katowice</p>
+              <p>NIP 938769032</p>
+            </div>
+          </mat-card>
+          <mat-card class="to-the-right">
+            <div class="ttr">
+              <p>J.Kowalski</p>
+              <p>ul.Testowa 2</p>
+              <p>40-234 Katowice</p>
+              <p>NIP 938769032</p>
+            </div>
+          </mat-card>
+
+          <table mat-table [dataSource]="data" class="mat-elevation-z8">
+            <ng-container
+              [matColumnDef]="column"
+              *ngFor="let column of displayedColumns"
+            >
+              <th mat-header-cell *matHeaderCellDef>
+                {{ column | titlecase }}
+              </th>
+              <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+          </table>
+        </mat-card>
+      </ng-container>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>
 </mat-card>
+</ng-container>

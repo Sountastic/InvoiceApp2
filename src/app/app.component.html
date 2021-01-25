@@ -35,13 +35,9 @@
       <ng-container>
         <mat-card class="mat-elevation-z0">
           <mat-card-title class="center">Customers</mat-card-title>
-          <button type="button" [appExport]="dataInvoiceClient" fileName="dataInvoiceClient" class="btn btn-danger">
-            Export
+          <button mat-stroked-button [appExport]="dataInvoiceClient" fileName="dataInvoiceClient" class="btn btn-danger" margin-left="10px">
+              Export to .xlsx
           </button>
-          <!-- <mat-form-field>
-            <mat-label>Filter</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-          </mat-form-field> -->
           <table mat-table [dataSource]="dataClient" class="mat-elevation-z8">
             <ng-container
               [matColumnDef]="column"
